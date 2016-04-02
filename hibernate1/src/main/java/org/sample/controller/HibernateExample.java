@@ -34,17 +34,12 @@ public class HibernateExample {
         Transaction transaction = session.beginTransaction();
 
         //step4: update operation
-        Student s1 = new Student("jack", "Gopu", "A");
-        Student s2 = new Student("srujan", "mosby", "B");
+        /*Student s1 = new Student("jack", "Gopu", "A");
 
         //one to one mapping example
-        StudentDetail studentDetail = new StudentDetail();
-        studentDetail.setGrade("5");
-        studentDetail.setNationality("Indian");
-        studentDetail.setRace("Black");
+        StudentDetail studentDetail = new StudentDetail("5","Indian", "black");
         studentDetail.setStudent(s1);
         s1.setStudentDetail(studentDetail);
-
 
         //one to many example
         Address homeAddres = new Address();
@@ -65,33 +60,16 @@ public class HibernateExample {
         s1.getAddresses().add(homeAddres);
         s1.getAddresses().add(workAddress);
 
-        //session.save(homeAddres);
-        //session.save(workAddress);
+        session.save(s1);*/
+       // session.save(studentDetail);
 
-
-        //many to many
-        Meeting m1 = new Meeting("Java class", "101", "Jack");
-        Meeting m2 = new Meeting("Angular class", "102", "Rob");
-        m1.getStudents().add(s1);
-        m2.getStudents().add(s1);
-        m2.getStudents().add(s2);
-
-        s1.getMeetings().add(m1);
-        s1.getMeetings().add(m2);
-
-        s2.getMeetings().add(m2);
-
-
-        session.save(s1);
-        session.save(s2);
-
-       /* Student s1 = (Student) session.get(Student.class, new Integer(1));
+        Student s1 = (Student) session.get(Student.class, new Integer(2));
         System.out.println(s1.getFirstName());
         Set<Address> addresses = s1.getAddresses();
        for(Address a1: addresses){
            System.out.println(a1.getState());
        }
-*/
+
 
         //step5: commit transaction
         transaction.commit();

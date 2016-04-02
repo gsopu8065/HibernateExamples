@@ -27,6 +27,15 @@ public class StudentDetail {
     @PrimaryKeyJoinColumn
     private Student student;
 
+    public StudentDetail() {
+    }
+
+    public StudentDetail(String grade, String nationality, String race) {
+        this.grade = grade;
+        this.nationality = nationality;
+        this.race = race;
+    }
+
     public int getStudentDetailId() {
         return studentDetailId;
     }

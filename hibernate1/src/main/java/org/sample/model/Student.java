@@ -27,7 +27,7 @@ public class Student implements Serializable {
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
     private StudentDetail studentDetail;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Address> addresses = new HashSet<Address>();
 
 
