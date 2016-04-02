@@ -2,13 +2,10 @@ package org.sample.model;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "STUDENT")
@@ -16,7 +13,7 @@ public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int studentId;
 
     @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
@@ -27,6 +24,20 @@ public class Student implements Serializable {
     @Column(name = "SECTION", nullable = false)
     private String section;
 
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    private StudentDetail studentDetail;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<Address> addresses = new HashSet<Address>();
+
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name="STUDENT_MEETING",
+            joinColumns={@JoinColumn(name="studentId")},
+            inverseJoinColumns={@JoinColumn(name="meetingId")})
+    private Set<Meeting> meetings = new HashSet<Meeting>();
+
+
     public Student() {
     }
 
@@ -36,12 +47,12 @@ public class Student implements Serializable {
         this.section = section;
     }
 
-    public int getId() {
-        return id;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public String getFirstName() {
@@ -68,10 +79,27 @@ public class Student implements Serializable {
         this.section = section;
     }
 
-    @Override
-    public String toString() {
-        return "Student [id=" + id + ", firstName=" + firstName + ", lastName="
-                + lastName + ", section=" + section + "]";
+    public StudentDetail getStudentDetail() {
+        return studentDetail;
     }
 
+    public void setStudentDetail(StudentDetail studentDetail) {
+        this.studentDetail = studentDetail;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public Set<Meeting> getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
+    }
 }
